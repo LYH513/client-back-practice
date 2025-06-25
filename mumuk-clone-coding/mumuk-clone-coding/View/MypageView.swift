@@ -60,7 +60,7 @@ struct MypageView: View {
             
             Spacer()
             
-            Text(UserInfoModel.mockData[0].recentStaus)
+            Text(UserInfoModel.mockData[0].recentStatus)
                 .applyTokenStyle()
         } //HStack
         .padding(.vertical, 25)
@@ -123,9 +123,14 @@ struct MypageView: View {
                     HStack{
                         if row == "고객센터" {
                             Image("sound")
+                        } else if row == "서비스 이용 약관"{
+                            Image("guide")
+                                .resizable()
+                                .frame(width: 14, height: 14)
                         } else {
-                            Image("sound")
-                                .hidden()
+                            Image("logout")
+                                .resizable()
+                                .frame(width: 14, height: 14)
                         }
                         
                         Text(row)

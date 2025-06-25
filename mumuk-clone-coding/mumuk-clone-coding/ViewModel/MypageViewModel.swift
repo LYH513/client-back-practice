@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+final class MypageViewModel: ObservableObject {
+    @Published var userData: UserInfoModel? = nil
+    
+    
+}

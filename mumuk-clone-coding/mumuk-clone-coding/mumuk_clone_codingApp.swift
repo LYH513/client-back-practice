@@ -11,7 +11,7 @@ import SwiftUI
 struct mumuk_clone_codingApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MypageView()
         }
     }
 }
