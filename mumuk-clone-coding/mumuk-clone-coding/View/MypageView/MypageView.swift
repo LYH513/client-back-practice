@@ -25,7 +25,6 @@ struct MypageView: View {
     ]
     
     var body: some View {
-        VStack(spacing:0){
             ScrollView{
                 HeaderView()
                 
@@ -43,12 +42,6 @@ struct MypageView: View {
                 } //VStack
                 .padding(.top, 29)
             } //ScrollView
-            
-            CustomTabView()
-            
-            
-        }//VStack
-        .ignoresSafeArea(edges: .bottom)
     }
     
     //MARK: - 컨테이너 뷰 UI

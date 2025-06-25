@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct CustomTabView: View {
+    @EnvironmentObject var navigationManager: NavigationManager
+    
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
                 Spacer()
 
                 // 좌측 버튼
-                Button(action:{}){
+                Button(action:{
+                    navigationManager.currentTab = .FindFriend
+                }){
                     VStack(spacing:0){
-                        Image("friend_off")
+                        Image(navigationManager.currentTab == .FindFriend ? "friend_on": "friend_off")
                             .padding(.bottom, 9)
                         Text("친구 찾기")
-                            .foregroundColor(Color(hex:"#A5A4A9"))
+                            .foregroundColor(Color(hex:navigationManager.currentTab == .FindFriend ? "#FF971A": "#A5A4A9"))
                             .font(.pretendardBold(size: 13))
                     }
                 }
@@ -30,12 +34,14 @@ struct CustomTabView: View {
                 Spacer()
 
                 // 우측 버튼
-                Button(action:{}){
+                Button(action:{
+                    navigationManager.currentTab = .Mypage
+                }){
                     VStack(spacing:0){
-                        Image("my_on")
+                        Image(navigationManager.currentTab == .Mypage ? "my_on" : "my_off")
                             .padding(.bottom, 9)
                         Text("MY")
-                            .foregroundColor(Color(hex:"#FF971A"))
+                            .foregroundColor(Color(hex:navigationManager.currentTab == .Mypage ? "#FF971A": "#A5A4A9"))
                             .font(.pretendardBold(size: 13))
                     }
                 }
@@ -50,7 +56,9 @@ struct CustomTabView: View {
             .shadow(color: .black.opacity(0.1), radius: 1, x: 0, y: -2)
 
             // 중앙 버튼 - 위로 튀어나오게
-            Button(action:{}){
+            Button(action:{
+                navigationManager.currentTab = .MenuRecommend
+            }){
                 VStack(spacing:0){
                     VStack(spacing: 0){
                         VStack(spacing: 0){
@@ -67,7 +75,7 @@ struct CustomTabView: View {
                     .padding(.bottom, 2)
 
                     Text("메뉴 추천")
-                        .foregroundColor(Color(hex:"#A5A4A9"))
+                        .foregroundColor(Color(hex:navigationManager.currentTab == .MenuRecommend ? "#FF971A": "#A5A4A9"))
                         .font(.pretendardBold(size: 13))
                 }
             }
@@ -78,4 +86,5 @@ struct CustomTabView: View {
 
 #Preview {
     CustomTabView()
+        .environmentObject(NavigationManager())
 }
