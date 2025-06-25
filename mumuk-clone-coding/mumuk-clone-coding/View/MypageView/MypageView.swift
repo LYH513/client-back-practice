@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MypageView: View {
     
+    @StateObject private var mypageViewModel: MypageViewModel = .init()
+    
     @State private var help = ["고객센터", "서비스 이용 약관", "로그아웃"]
     @State private var chipsContainerHeight: CGFloat = 0 // 칩뷰 flowlayout
     
@@ -26,7 +28,7 @@ struct MypageView: View {
     
     var body: some View {
             ScrollView{
-                HeaderView()
+                HeaderView(viewModel: mypageViewModel)
                 
                 VStack(spacing: 30){
                     ForEach(menus, id:\.self) { menu in
@@ -53,7 +55,7 @@ struct MypageView: View {
             
             Spacer()
             
-            Text(UserInfoModel.mockData[0].recentStatus)
+            Text(mypageViewModel.userData.recentStatus)
                 .applyTokenStyle()
         } //HStack
         .padding(.vertical, 25)
@@ -69,7 +71,7 @@ struct MypageView: View {
                 
                 Spacer()
                 
-                Text(UserInfoModel.mockData[0].yesterdayEaten)
+                Text(mypageViewModel.userData.yesterdayEaten)
                     .bold()
                     .applyTokenStyle()
                 
@@ -93,7 +95,7 @@ struct MypageView: View {
             ChipsContainerView(
                 totalHeight: $chipsContainerHeight, verticalSpacing: 8,
                 horizontalSpacing: 12,
-                items: UserInfoModel.mockData[0].todayTaste,
+                items: mypageViewModel.userData.todayTaste,
             )
             .frame(height: chipsContainerHeight)
             

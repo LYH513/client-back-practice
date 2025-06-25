@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HeaderView: View {
     
+    @ObservedObject var viewModel: MypageViewModel
+    
     var body: some View {
         VStack(alignment: .leading,spacing:0){
             Text("MY")
@@ -17,15 +19,13 @@ struct HeaderView: View {
             
             HStack(spacing:0){
                 VStack(alignment: .leading, spacing:0){
-                    Text("맛있으면울어")
+                    Text("\(viewModel.userData.username)")
                         .font(.pretendardBold(size: 25))
                     
                     HStack(spacing: 5){
-                        ForEach(UserInfoModel.mockData){ items in
-                            ForEach(items.tastePreferences, id: \.self){ item in
-                                Text("\(item)")
-                                    .applyTagStyle()
-                            }
+                        ForEach(viewModel.userData.tastePreferences, id: \.self){ item in
+                            Text("\(item)")
+                                .applyTagStyle()
                         }
                     } // HStack
                     .padding(.bottom, 12)
@@ -73,5 +73,5 @@ struct HeaderView: View {
 }
 
 #Preview {
-    HeaderView()
+    HeaderView(viewModel: MypageViewModel())
 }
