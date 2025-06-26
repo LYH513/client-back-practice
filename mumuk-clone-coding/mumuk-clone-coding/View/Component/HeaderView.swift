@@ -38,7 +38,7 @@ struct HeaderView: View {
                 } // VStack
                 
                 Spacer()
-                    .frame(width: 62)
+                    .frame(maxWidth: 62)
                 
                 Image("logoDog")
                     .frame(width: 51, height: 48.74908)

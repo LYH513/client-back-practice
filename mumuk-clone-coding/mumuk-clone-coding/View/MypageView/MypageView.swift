@@ -43,6 +43,7 @@ struct MypageView: View {
                     }//ForEach
                 } //VStack
                 .padding(.top, 29)
+                .padding(.bottom, 140)
             } //ScrollView
     }
     

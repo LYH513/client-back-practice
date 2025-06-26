@@ -9,24 +9,18 @@ import Foundation
 
 
 final class MypageViewModel: ObservableObject {
-    @Published var userData: UserInfoModel
+    @Published var userData: UserInfoModel = UserInfoModel.mockData
     
-    private let userId = 2;
-    private let baseUrl = "서버주소"
+    private let userId = 6;
+    private let baseUrl = "http://127.0.0.1:8080/api/userinfo"
     
     init(){
-        // 서버 연결 X
-        userData = UserInfoModel.mockData
-
-        // 서버 연결 O
-        /*
-         Task {
+        Task {
             await getUserInfo()
-         }
-         */
+        }
     }
     
-    private func getUserInfo() async {
+    func getUserInfo() async {
         let urlString = baseUrl
         guard let url = URL(string: "\(urlString)/\(userId)") else {
             print("🚨ERROR: invalidURL")
@@ -40,9 +34,13 @@ final class MypageViewModel: ObservableObject {
                 print("🚨ERROR: Invalid response - status code: \((response as? HTTPURLResponse)?.statusCode ?? -1)")
                 return
             }
-
+            
             let decodedData = try JSONDecoder().decode(UserInfoModel.self, from: data)
-            userData = decodedData
+            
+            DispatchQueue.main.async {
+                self.userData = decodedData
+            }
+            print("response \(userData)")
         } catch {
             print("🚨ERROR: Network or decoding error - \(error.localizedDescription)")
         }
